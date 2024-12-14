@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pizza Delivery System</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f9;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      .container {
+        text-align: center;
+        background: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        border-radius: 8px;
+      }
+
+      h1 {
+        color: #ff5722;
+      }
+
+      form {
+        margin-top: 20px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+      }
+
+      .btn {
+        background-color: #ff5722;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .btn:disabled {
+        background-color: #ddd;
+        cursor: not-allowed;
+      }
+
+      .error {
+        color: red;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Pizza Delivery Form</h1>
+      <form id="pizzaForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required />
+          <span id="nameError" class="error"></span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+          <span id="emailError" class="error"></span>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="text" id="phone" name="phone" required />
+          <span id="phoneError" class="error"></span>
+        </div>
+        <div class="form-group">
+          <label for="address">Address</label>
+          <input type="text" id="address" name="address" required />
+          <span id="addressError" class="error"></span>
+        </div>
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+
+    <script>
+      const form = document.getElementById("pizzaForm");
+
+      const nameRegex = /^[A-Za-z ]{3,50}$/;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^\d{10}$/;
+      const addressRegex = /^.{5,100}$/;
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const address = document.getElementById("address").value;
+
+        let isValid = true;
+
+        if (!nameRegex.test(name)) {
+          document.getElementById("nameError").textContent =
+            "Name must be 3-50 alphabetic characters.";
+          isValid = false;
+        } else {
+          document.getElementById("nameError").textContent = "";
+        }
+
+        if (!emailRegex.test(email)) {
+          document.getElementById("emailError").textContent =
+            "Invalid email format.";
+          isValid = false;
+        } else {
+          document.getElementById("emailError").textContent = "";
+        }
+
+        if (!phoneRegex.test(phone)) {
+          document.getElementById("phoneError").textContent =
+            "Phone number must be 10 digits.";
+          isValid = false;
+        } else {
+          document.getElementById("phoneError").textContent = "";
+        }
+
+        if (!addressRegex.test(address)) {
+          document.getElementById("addressError").textContent =
+            "Address must be between 5 and 100 characters.";
+          isValid = false;
+        } else {
+          document.getElementById("addressError").textContent = "";
+        }
+
+        if (isValid) {
+          alert("Form submitted successfully!");
+          form.reset();
+        }
+      });
+    </script>
+  </body>
+</html> 
